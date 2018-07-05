@@ -12,18 +12,26 @@ import com.google.gson.JsonParser;
 
 public class Player {
 
-    static final String VERSION = "V 1.6";
+    static final String VERSION = "V 1.7";
 
     public static int betRequest(JsonElement request) {
     	JsonObject obj = request.getAsJsonObject();
     	
+    	Set<String> highCards = new HashSet<>();
+    	highCards.add("9");
+    	highCards.add("10");
+    	highCards.add("J");
+    	highCards.add("Q");
+    	highCards.add("K");
+    	highCards.add("A");
+    	
     	int currentBuyIn = obj.get("current_buy_in").getAsInt();
-    	int raiseValue = 0;
     	
     	JsonElement players = obj.get("players");
     	JsonArray playersList = players.getAsJsonArray();
     	Set<String> ranksSet = new HashSet<>();
     	Set<String> colorSet = new HashSet<>();
+    	int nrOfHighCards = 0;
     	for (Iterator<JsonElement> itr = playersList.iterator() ; itr.hasNext ();) {
     		JsonElement jElement = itr.next();
     		JsonObject player = jElement.getAsJsonObject();
@@ -36,12 +44,15 @@ public class Player {
     		        	 ranksSet.add(rank);
 						String suit = card.getAsJsonObject().get("suit").getAsString();
 						colorSet.add(suit);
+						if (highCards.contains(rank)) {
+							nrOfHighCards++;
+						}
 					 }
     		     }
     		 }
     	}
     	
-    	if (ranksSet.size() == 1 || colorSet.size() == 1) {
+    	if (ranksSet.size() == 1 || colorSet.size() == 1 || nrOfHighCards == 2) {
     		return currentBuyIn + 10;
     	} else {
     		return 0;
