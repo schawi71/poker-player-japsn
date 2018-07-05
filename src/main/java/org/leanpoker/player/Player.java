@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 
 public class Player {
 
-    static final String VERSION = "V 1.3";
+    static final String VERSION = "V 1.4";
 
     public static int betRequest(JsonElement request) {
     	JsonObject obj = request.getAsJsonObject();
@@ -23,6 +23,7 @@ public class Player {
     	JsonElement players = obj.get("players");
     	JsonArray playersList = players.getAsJsonArray();
     	Set<String> ranksSet = new HashSet<>();
+    	Set<String> colorSet = new HashSet<>();
     	for (Iterator<JsonElement> itr = playersList.iterator() ; itr.hasNext ();) {
     		JsonElement jElement = itr.next();
     		JsonObject player = jElement.getAsJsonObject();
@@ -34,12 +35,13 @@ public class Player {
     		        	 String rank = card.getAsJsonObject().get("rank").getAsString();
     		        	 ranksSet.add(rank);
 						String suit = card.getAsJsonObject().get("suit").getAsString();
+						colorSet.add(suit);
 					 }
     		     }
     		 }
     	}
     	
-    	if (ranksSet.size() == 1) {
+    	if (ranksSet.size() == 1 || colorSet.size() == 1) {
     		raiseValue = 10;
     	}
     	return currentBuyIn + raiseValue;
