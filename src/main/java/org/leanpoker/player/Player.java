@@ -12,7 +12,7 @@ public class Player {
     public static int betRequest(JsonElement request) {
 
     	System.out.print(request);
-    	return 2;
+    	return 1000;
     }
 
     public static void showdown(JsonElement game) {
