@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 
 public class Player {
 
-    static final String VERSION = "V 1.5";
+    static final String VERSION = "V 1.6";
 
     public static int betRequest(JsonElement request) {
     	JsonObject obj = request.getAsJsonObject();
@@ -42,9 +42,10 @@ public class Player {
     	}
     	
     	if (ranksSet.size() == 1 || colorSet.size() == 1) {
-    		raiseValue = 10;
+    		return currentBuyIn + 10;
+    	} else {
+    		return 0;
     	}
-    	return currentBuyIn + raiseValue;
     }
 
     public static void showdown(JsonElement game) {
