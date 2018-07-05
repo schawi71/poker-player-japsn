@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 
 public class Player {
 
-    static final String VERSION = "V 1.2";
+    static final String VERSION = "V 1.3";
 
     public static int betRequest(JsonElement request) {
     	JsonObject obj = request.getAsJsonObject();
